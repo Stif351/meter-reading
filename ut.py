@@ -10,7 +10,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import A4
 from io import BytesIO
-# from send2trash import send2trash
+from send2trash import send2trash
 from pathlib import Path
 
 class MyExtraWindow(tk.Toplevel):
@@ -180,7 +180,7 @@ class MyExtraWindow(tk.Toplevel):
 
         if response:
             for folder in folders:
-                for pdf in folder.glob("*.pdf"):
+                 for pdf in folder.glob("*.pdf"):
                     send2trash(pdf)
 
     #  ----------- MAIN WINDOWS -------------------------
