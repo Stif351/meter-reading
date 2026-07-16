@@ -1,5 +1,6 @@
-from tkinter import ttk, SUNKEN, W, font
+from tkinter import ttk, SUNKEN, W, font, RIDGE
 import tkinter as tk
+from tkinter.constants import SOLID
 
 import main_1, compress_files
 
@@ -7,7 +8,7 @@ from ut import MyExtraWindow  # Імпорт класу
 
 def change_photo():
 
-    compress_files.change_photos()
+    compress_files.change_photos(root)
 
 def add_check():
 
@@ -31,7 +32,7 @@ def confirm_exit():
 # ===================  MAIN WINDOW  ==================================
 
 root = tk.Tk()
-root.title("MAIN WINDOW")
+root.title("ПОКАЗНИКИ ЛІЧИЛЬНИКІВ")
 
 window_width = 500
 window_height = 600
@@ -60,17 +61,17 @@ lf_m.config(width=450, height=500)
 label = tk.Label(lf_m, text="ЩО ТРЕБА ЗРОБИТИ", fg="BLUE", font=courier_18)
 label.grid(row=0, column=0,  ipadx=6, ipady=6, padx=50, pady=15)
 
-change_photo = tk.Button(lf_m, text="ОБРОБИТИ ФОТО ЛІЧИЛЬНИКІВ", font=courier_10, state='normal', command=change_photo)
+change_photo = tk.Button(lf_m, text="ОБРОБИТИ ФОТО ЛІЧИЛЬНИКІВ", font=courier_10, state='normal', relief=RIDGE, command=change_photo)
 change_photo.grid(row=1, column=0, ipadx=6, ipady=6, padx=50, pady=30)
 
-add_dates = tk.Button(lf_m, text="    ДОДАТИ ПОКАЗНИКИ     ", font=courier_10, state='normal', command=add_date)
+add_dates = tk.Button(lf_m, text="    ДОДАТИ ПОКАЗНИКИ     ", font=courier_10, state='normal', relief=RIDGE, command=add_date)
 add_dates.grid(row=2, column=0, ipadx=6, ipady=6, padx=50, pady=30)
 
 
-merges = tk.Button(lf_m, text="   ОБ'ЄДНАТИ КВИТАНЦІЇ   ", font=courier_10, state='normal', command=add_check)
+merges = tk.Button(lf_m, text="   ОБ'ЄДНАТИ КВИТАНЦІЇ   ", font=courier_10, state='normal', relief=RIDGE, command=add_check)
 merges.grid(row=3, column=0, ipadx=6, ipady=6, padx=50, pady=30)
 
-exit_btn = tk.Button(lf_m, text=" ЗАВЕРШИТИ ", font=courier_10, foreground='red', command=confirm_exit)
+exit_btn = tk.Button(lf_m, text=" ЗАВЕРШИТИ ", font=courier_10, foreground='red', relief=SOLID, command=confirm_exit)
 exit_btn.grid(row=4, column=0, ipadx=6, ipady=6, padx=50, pady=30)
 
 lf_m.grid(column=0, row=5, ipadx=16, ipady=16, padx=50, pady=30)

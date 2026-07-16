@@ -1,8 +1,8 @@
 from tkinter import SUNKEN, W, END
 import search_data
 import tkinter as tk
-from tkinter import font, messagebox, filedialog
-from tkinter import ttk
+from tkinter import ttk, font, messagebox, filedialog
+
 
 
 def add_app(root):
