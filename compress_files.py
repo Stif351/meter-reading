@@ -12,15 +12,28 @@ def change_photos(root):
     # def batch_compress_images(input_folder, output_folder, quality):
     def batch_compress_images():
 
-        input_folder = 'd:/комуналка\Комуналка_Раевка_25/КВІТНЕВА_8/photos'  # папка з фото
-        output_folder = 'd:/комуналка/dir_result'  # папка для готових файлів
+        input_folder = filedialog.askdirectory(initialdir=r"D:\комуналка", title="ВИБІР ПАПКИ З ФАЙЛАМИ")  # папка з фото
+        # input_folder = 'd:/комуналка\Комуналка_Раевка_25/КВІТНЕВА_8/photos'  # папка з фото
+        output_folder = 'D:/комуналка/dir_result'  # папка для готових файлів
         quality = 15
+
+        # прогрес бар
+        # рахуємо кількість файлів у папці
+        files_to_process = [
+            f
+            for f in os.listdir(input_folder)
+            if os.path.isfile(os.path.join(input_folder, f))
+        ]
+        print('files_to_process', files_to_process)
+        total_files = len(files_to_process)
+        print('total_files', total_files)
+        progress_bar["maximum"] = total_files
+        progress_bar["value"] = 0
 
         # Створюємо папку для результатів
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
             print(f"Створено папку: {output_folder}")
-
         count = 0
         # Перебираємо всі файли в робочій папці
         for filename in os.listdir(input_folder):
@@ -36,11 +49,13 @@ def change_photos(root):
 
                     # print(f"Успішно оброблено: {filename}")
                     count += 1
+                    progress_bar["value"] = count
+                    root.update_idletasks()
                 except Exception as e:
                     print(f"Помилка обробки файлу {filename}: {e}")
                     messagebox.showerror("ПОМИЛКА ОБРОБКИ", f"Помилка обробки файлу {filename}", parent=about_win)
 
-        messagebox.showinfo('ОБРОБКА ФАЙЛІВ ', f'Успішно оброблено файлів {count}', parent=about_win)
+        messagebox.showinfo('ОБРОБКА ФАЙЛІВ ', f'Успішно оброблено файлів: {count}. \nШлях до файлів: D:/комуналка/dir_result', parent=about_win)
         # print('FILES = ', count)
     # source_dir = 'd:/комуналка\Комуналка_Раевка_25/КВІТНЕВА_8/photos'  # папка з фото
     # result_dir = 'd:/комуналка\Комуналка_Раевка_25/dir_result'  # папка для готових файлів
@@ -67,6 +82,9 @@ def change_photos(root):
 
     label = tk.Label(about_win, text="ОБРОБКА ФОТО ЛІЧИЛЬНИКІВ", fg="BLUE", font=courier_18)
     label.grid(row=0, column=0, columnspan=3, ipadx=6, ipady=6, padx=5, pady=5)
+
+    progress_bar = ttk.Progressbar(about_win, orient=tk.HORIZONTAL, length=300, mode="determinate")
+    progress_bar.grid(row=1, column=0, ipadx=6, ipady=6, padx=5, pady=5)
 
     lf_MF = ttk.Frame(about_win, borderwidth=10, relief=SUNKEN)
     lf_MF.config(width=850, height=600)
