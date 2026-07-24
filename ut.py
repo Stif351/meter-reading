@@ -68,11 +68,11 @@ class MyExtraWindow(tk.Toplevel):
 
     def browse_directory(self, a, b, c, i, btn1, btn2):
 
-        new_folder_path = filedialog.askdirectory(initialdir=r"D:\комуналка", title="Dialog box")
-        self.results[i] = new_folder_path
+        self.new_folder_path = filedialog.askdirectory(initialdir=r"D:\комуналка", title="Dialog box")
+        self.results[i] = self.new_folder_path
 
         # self.label_report(self, new_folder_path)
-        self.label_report(self, a, b, c, new_folder_path)
+        self.label_report( a, b, c, self.new_folder_path)
 
         btn2.config(state='normal')
         btn1.config(state='disable')
@@ -194,6 +194,8 @@ class MyExtraWindow(tk.Toplevel):
         lf3.config(width=850, height=900)
         lf3.grid_propagate(False)
 
+        lf3.grid(column=0, row=1, ipadx=6, ipady=6, padx=20, pady=20)
+
         # =====================  Додаємо  місяць  =========================================
         self.lf2 = ttk.Frame(lf3, borderwidth=10, relief=SUNKEN)
         self.lf2.config(width=self.width_frame, height=130)
@@ -225,60 +227,60 @@ class MyExtraWindow(tk.Toplevel):
         self.lf1.config(width=self.width_frame, height=130)
         self.lf1.grid_propagate(False)
 
-        label_path = tk.Label(self.lf1, text="оберіть шлях \n розтушування \n файлів", justify="center", font=self.courier_14,
+        self.label_path = tk.Label(self.lf1, text="оберіть шлях \n розтушування \n файлів", justify="center", font=self.courier_14,
                               foreground='red')
-        label_path.grid(row=4, column=0, rowspan=2, ipadx=6, ipady=6, padx=5, pady=5)
-        dialog_btn_8 = tk.Button(self.lf1, text="КВІТНЕВА-8", font=self.courier_10, width=12, state='disable',
-                                 command=lambda: self.browse_directory(self.lf1, 4, 2, 3, dialog_btn_8, dialog_btn_30))
-        dialog_btn_8.grid(row=4, column=1, ipadx=6, ipady=6, padx=5, pady=5)
-        dialog_btn_30 = tk.Button(self.lf1, text="КВІТНЕВА-30-5", font=self.courier_10, width=12, state='disable',
-                                  command=lambda: self.browse_directory(self.lf1, 5, 2, 4, dialog_btn_30, dialog_add_btn_8))
-        dialog_btn_30.grid(row=5, column=1, ipadx=6, ipady=6, padx=5, pady=5)
+        self.label_path.grid(row=4, column=0, rowspan=2, ipadx=6, ipady=6, padx=5, pady=5)
+        self.dialog_btn_8 = tk.Button(self.lf1, text="КВІТНЕВА-8", font=self.courier_10, width=12, state='disable',
+                                 command=lambda: self.browse_directory(self.lf1, 4, 2, 3, self.dialog_btn_8, self.dialog_btn_30))
+        self.dialog_btn_8.grid(row=4, column=1, ipadx=6, ipady=6, padx=5, pady=5)
+        self.dialog_btn_30 = tk.Button(self.lf1, text="КВІТНЕВА-30-5", font=self.courier_10, width=12, state='disable',
+                                  command=lambda: self.browse_directory(self.lf1, 5, 2, 4, self.dialog_btn_30, self.dialog_add_btn_8))
+        self.dialog_btn_30.grid(row=5, column=1, ipadx=6, ipady=6, padx=5, pady=5)
 
         self.lf1.grid(column=0, row=5, padx=20, pady=10, sticky=W)
 
         # ========================= Обираємо шлях збереження файлів  ====================================
 
-        lf4 = ttk.Frame(lf3, borderwidth=10, relief=SUNKEN)
-        lf4.config(width=self.width_frame, height=130)
-        lf4.grid_propagate(False)
+        self.lf4 = ttk.Frame(lf3, borderwidth=10, relief=SUNKEN)
+        self.lf4.config(width=self.width_frame, height=130)
+        self.lf4.grid_propagate(False)
 
-        label_path_add = tk.Label(lf4, text="оберіть шлях \n зберігання \n файлів  ", font=self.courier_14, justify='center',
+        self.label_path_add = tk.Label(self.lf4, text="оберіть шлях \n зберігання \n файлів  ", font=self.courier_14, justify='center',
                                   foreground='red')
-        label_path_add.grid(row=4, column=0, rowspan=2, ipadx=6, ipady=6, padx=5, pady=5)
-        dialog_add_btn_8 = tk.Button(lf4, text="КВІТНЕВА-8", font=self.courier_10, width=12, state='disable',
-                                     command=lambda: self.browse_directory(lf4, 4, 2, 5, dialog_add_btn_8, dialog_add_btn_30))
-        dialog_add_btn_8.grid(row=4, column=1, ipadx=6, ipady=6, padx=5, pady=5)
-        dialog_add_btn_30 = tk.Button(lf4, text="КВІТНЕВА-30-5", font=self.courier_10, width=12, state='disable',
-                                      command=lambda: self.browse_directory(lf4, 5, 2, 6, dialog_add_btn_30, save_btn))
-        dialog_add_btn_30.grid(row=5, column=1, ipadx=6, ipady=6, padx=5, pady=5)
+        self.label_path_add.grid(row=4, column=0, rowspan=2, ipadx=6, ipady=6, padx=5, pady=5)
+        self.dialog_add_btn_8 = tk.Button(self.lf4, text="КВІТНЕВА-8", font=self.courier_10, width=12, state='disable',
+                                     command=lambda: self.browse_directory(self.lf4, 4, 2, 5, self.dialog_add_btn_8, self.dialog_add_btn_30))
+        self.dialog_add_btn_8.grid(row=4, column=1, ipadx=6, ipady=6, padx=5, pady=5)
+        self.dialog_add_btn_30 = tk.Button(self.lf4, text="КВІТНЕВА-30-5", font=self.courier_10, width=12, state='disable',
+                                      command=lambda: self.browse_directory(self.lf4, 5, 2, 6, self.dialog_add_btn_30, self.save_btn))
+        self.dialog_add_btn_30.grid(row=5, column=1, ipadx=6, ipady=6, padx=5, pady=5)
 
-        lf4.grid(column=0, row=6, padx=20, pady=10, sticky=W)
+        self.lf4.grid(column=0, row=6, padx=20, pady=10, sticky=W)
 
         # =======================INFO TABLE =========================================
 
-        '''lf5 = ttk.Frame(lf3, borderwidth=10, relief=SUNKEN)
-        lf5.config(width=self.width_frame, height=150)
-        lf5.grid_propagate(False)
+        self.lf5 = ttk.Frame(lf3, borderwidth=10, relief=SUNKEN)
+        self.lf5.config(width=self.width_frame, height=150)
+        self.lf5.grid_propagate(False)
 
-        lf5.grid(column=0, row=7, padx=20, pady=10, sticky=S)'''
+        self.lf5.grid(column=0, row=7, padx=20, pady=10, sticky=S)
 
         # =========================== Кнопка зберегти файли  ============================
-        lf = ttk.Frame(lf3, borderwidth=10, relief=SUNKEN)
-        lf.config(width=self.width_frame, height=80)
-        lf.grid_propagate(False)
+        self.lf = ttk.Frame(lf3, borderwidth=10, relief=SUNKEN)
+        self.lf.config(width=self.width_frame, height=80)
+        self.lf.grid_propagate(False)
 
-        save_btn = tk.Button(lf, text="ЗБЕРЕГТИ ФАЙЛИ", font=self.courier_10, state='disable', command=self.join_file)
-        save_btn.grid(row=6, column=0, ipadx=6, ipady=6, padx=50, pady=10)
+        self.save_btn = tk.Button(self.lf, text="ЗБЕРЕГТИ ФАЙЛИ", font=self.courier_10, state='disable', command=self.join_file)
+        self.save_btn.grid(row=6, column=0, ipadx=6, ipady=6, padx=50, pady=10)
 
         # =========================== Кнопка EXIT  ============================
 
-        exit_btn = tk.Button(lf, text="ЗАВЕРШИТИ", font=self.courier_10, command=self.confirm_exit)
-        exit_btn.grid(row=6, column=2, ipadx=6, ipady=6, padx=400, pady=10)
+        self.exit_btn = tk.Button(self.lf, text="ЗАВЕРШИТИ", font=self.courier_10, command=self.confirm_exit)
+        self.exit_btn.grid(row=6, column=2, ipadx=6, ipady=6, padx=400, pady=10)
 
-        lf.grid(column=0, row=8, padx=20, pady=10, sticky=S)
+        self.lf.grid(column=0, row=8, padx=20, pady=10, sticky=S)
 
         # ================= END ===================================================
 
-        lf3.grid(column=0, row=1, ipadx=6, ipady=6, padx=20, pady=20)
+
 
