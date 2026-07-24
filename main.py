@@ -2,7 +2,7 @@ from tkinter import ttk, SUNKEN, W, font, RIDGE
 import tkinter as tk
 from tkinter.constants import SOLID
 
-import main_1, compress_files
+import main_1, compress_files, utill
 
 from ut import MyExtraWindow  # Імпорт класу
 
@@ -11,7 +11,7 @@ def change_photo():
     compress_files.change_photos(root)
 
 def add_check():
-
+    # utill.print_check(root)
 
     new_win = MyExtraWindow(root)
 
@@ -58,7 +58,7 @@ courier_18 = font.Font(family="Courier", size=18, weight=font.BOLD)
 lf_m= ttk.Frame(root, borderwidth=10, relief=SUNKEN)
 lf_m.config(width=450, height=500)
 
-label = tk.Label(lf_m, text="ЩО ТРЕБА ЗРОБИТИ", fg="BLUE", font=courier_18)
+label = tk.Label(lf_m, text=" ОБЕРИТЕ ДІЮ: ", fg="BLUE", font=courier_18)
 label.grid(row=0, column=0,  ipadx=6, ipady=6, padx=50, pady=15)
 
 change_photo = tk.Button(lf_m, text="ОБРОБИТИ ФОТО ЛІЧИЛЬНИКІВ", font=courier_10, state='normal', relief=RIDGE, command=change_photo)

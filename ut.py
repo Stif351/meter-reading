@@ -163,7 +163,7 @@ class MyExtraWindow(tk.Toplevel):
         with open(output_pdf, "wb") as f:
             writer.write(f)
 
-        path_s = f'Файл збережено.\n Шлях до файлу: {output_pdf}'
+        path_s = f'Файл збережено. Шлях до файлу: {output_pdf}'
         path_save_label1 = ttk.Label(fr, text=path_s, font=self.courier_10, foreground='green')
         path_save_label1.grid(row=rw, column=0, ipadx=6, ipady=6, padx=5, pady=5)
 
@@ -187,11 +187,11 @@ class MyExtraWindow(tk.Toplevel):
 
     def setup_ui(self):
 
-        label = tk.Label(self, text="ЄДИНА КВИТАНЦІЯ ПРО ОПЛАТУ КОМУНАЛЬНИХ ПОСЛУГ", fg="BLACK", font=self.courier_18)
+        label = tk.Label(self, text="ЄДИНА КВИТАНЦІЯ ПРО ОПЛАТУ КОМУНАЛЬНИХ ПОСЛУГ", fg="BLUE", font=self.courier_18)
         label.grid(row=0, column=0, columnspan=3, ipadx=6, ipady=6, padx=5, pady=15)
 
         lf3 = ttk.Frame(self, borderwidth=10, relief=SUNKEN)
-        lf3.config(width=850, height=900)
+        lf3.config(width=850, height=670)
         lf3.grid_propagate(False)
 
         lf3.grid(column=0, row=1, ipadx=6, ipady=6, padx=20, pady=20)
@@ -201,7 +201,7 @@ class MyExtraWindow(tk.Toplevel):
         self.lf2.config(width=self.width_frame, height=130)
         self.lf2.grid_propagate(False)
 
-        label_month = tk.Label(self.lf2, text="Виберіть місяць: ", font=self.courier_14, foreground='red')
+        label_month = tk.Label(self.lf2, text="Виберіть місяць: ", font=self.courier_14)
         label_month.grid(row=2, column=0, ipadx=6, ipady=6, padx=5, pady=5)
 
         self.selected_report = tk.StringVar(value=self.report_options[0])
@@ -212,7 +212,7 @@ class MyExtraWindow(tk.Toplevel):
 
         # =================== Додаємо рік  =======================================================
 
-        label_year = tk.Label(self.lf2, text="Виберіть рік: ", font=self.courier_14, foreground='red')
+        label_year = tk.Label(self.lf2, text="Виберіть рік: ", font=self.courier_14)
         label_year.grid(row=3, column=0, ipadx=6, ipady=6, padx=5, pady=5)
 
         self.selected_report_year = tk.StringVar(value=self.report_options[0])
@@ -227,8 +227,7 @@ class MyExtraWindow(tk.Toplevel):
         self.lf1.config(width=self.width_frame, height=130)
         self.lf1.grid_propagate(False)
 
-        self.label_path = tk.Label(self.lf1, text="оберіть шлях \n розтушування \n файлів", justify="center", font=self.courier_14,
-                              foreground='red')
+        self.label_path = tk.Label(self.lf1, text="оберіть шлях \n розтушування \n файлів", justify="center", font=self.courier_14)
         self.label_path.grid(row=4, column=0, rowspan=2, ipadx=6, ipady=6, padx=5, pady=5)
         self.dialog_btn_8 = tk.Button(self.lf1, text="КВІТНЕВА-8", font=self.courier_10, width=12, state='disable',
                                  command=lambda: self.browse_directory(self.lf1, 4, 2, 3, self.dialog_btn_8, self.dialog_btn_30))
@@ -245,8 +244,7 @@ class MyExtraWindow(tk.Toplevel):
         self.lf4.config(width=self.width_frame, height=130)
         self.lf4.grid_propagate(False)
 
-        self.label_path_add = tk.Label(self.lf4, text="оберіть шлях \n зберігання \n файлів  ", font=self.courier_14, justify='center',
-                                  foreground='red')
+        self.label_path_add = tk.Label(self.lf4, text="оберіть шлях \n зберігання \n файлів  ", font=self.courier_14, justify='center')
         self.label_path_add.grid(row=4, column=0, rowspan=2, ipadx=6, ipady=6, padx=5, pady=5)
         self.dialog_add_btn_8 = tk.Button(self.lf4, text="КВІТНЕВА-8", font=self.courier_10, width=12, state='disable',
                                      command=lambda: self.browse_directory(self.lf4, 4, 2, 5, self.dialog_add_btn_8, self.dialog_add_btn_30))
@@ -260,7 +258,7 @@ class MyExtraWindow(tk.Toplevel):
         # =======================INFO TABLE =========================================
 
         self.lf5 = ttk.Frame(lf3, borderwidth=10, relief=SUNKEN)
-        self.lf5.config(width=self.width_frame, height=150)
+        self.lf5.config(width=self.width_frame, height=100)
         self.lf5.grid_propagate(False)
 
         self.lf5.grid(column=0, row=7, padx=20, pady=10, sticky=S)
@@ -275,7 +273,7 @@ class MyExtraWindow(tk.Toplevel):
 
         # =========================== Кнопка EXIT  ============================
 
-        self.exit_btn = tk.Button(self.lf, text="ЗАВЕРШИТИ", font=self.courier_10, command=self.confirm_exit)
+        self.exit_btn = tk.Button(self.lf, text="ЗАВЕРШИТИ", font=self.courier_10, foreground='red', command=self.confirm_exit)
         self.exit_btn.grid(row=6, column=2, ipadx=6, ipady=6, padx=400, pady=10)
 
         self.lf.grid(column=0, row=8, padx=20, pady=10, sticky=S)

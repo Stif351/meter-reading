@@ -31,12 +31,15 @@ def add_app(root):
             text1 = widget.get()
 
             if tag == "month":
+
                 text = text1
-                label_report(lf_H1, 2, 0, text)
+                print('text1>>', text1, text)
+
+                label_report(lf_H1, 0, 3, text)
 
             if tag == "address":
                 text2 = text1
-                label_report(lf_H1, 2, 1, text2)
+                label_report(lf_H1, 1, 3, text2)
 
         def add_date():
 
@@ -80,7 +83,7 @@ def add_app(root):
 
         def label_report(frame, row, column, value):
 
-            report_label = ttk.Label(frame, text=f'Ви вибрали:{value}', font=courier_14, foreground='green')
+            report_label = ttk.Label(frame, text=f'Ви вибрали:  {value}', font=courier_10, foreground='green')
             report_label.grid(row=row, column=column, ipadx=6, ipady=6, padx=55, pady=5)
             print('l>>>>>')
 
@@ -126,7 +129,7 @@ def add_app(root):
         lf_H1.config(width=width_frame, height=110)
         lf_H1.grid_propagate(False)
 
-        label_month = tk.Label(lf_H1, text="Виберіть місяць: ", font=courier_14, foreground='red')
+        label_month = tk.Label(lf_H1, text="Виберіть місяць: ", font=courier_14)
         label_month.grid(row=0, column=0, ipadx=6, ipady=6, padx=5, pady=5, sticky=W)
 
         selected_report = tk.StringVar(value=months[0])
@@ -135,7 +138,7 @@ def add_app(root):
         report_menu.grid(row=0, column=1,padx=5, pady=5, sticky=W)
         report_menu.bind("<<ComboboxSelected>>", selected)
 
-        label_a = tk.Label(lf_H1, text="Виберіть адресу: ", font=courier_14, foreground='red')
+        label_a = tk.Label(lf_H1, text="Виберіть адресу: ", font=courier_14)
         label_a.grid(row=1, column=0, ipadx=6, ipady=6, padx=5, pady=5, sticky=W)
 
         selected_a = tk.StringVar(value=address[0])
@@ -159,7 +162,7 @@ def add_app(root):
         for i, d in enumerate(energy):  # створюємо 3 поля
 
 
-            label = tk.Label(lf_H8, text=f"Введіть показники лічильника {d}: ",  font=courier_14, foreground='red')
+            label = tk.Label(lf_H8, text=f"Введіть показники лічильника {d}: ",  font=courier_14)
             label.grid(row=i, column=0, ipadx=6, ipady=6, padx=5, pady=5)
 
             entry = tk.Entry(lf_H8, validate="key", validatecommand=vcmd)
@@ -170,11 +173,11 @@ def add_app(root):
 
         # ************************************ КНОПКА ДОБАВИТИ  ***********************************************************
 
-        save_btn = tk.Button(lf_H8, text="ЗБЕРЕГТИ ПОКАЗНИКИ", font=courier_10, state='normal', command=add_date)
-        save_btn.grid(row=3, column=0, ipadx=6, ipady=6, padx=50, pady=30)
+        save_btn = tk.Button(lf_H8, text="ЗБЕРЕГТИ ПОКАЗНИКИ", font=courier_10, foreground='green', state='normal', command=add_date)
+        save_btn.grid(row=3, column=1, ipadx=6, ipady=6, padx=50, pady=30)
 
         exit_btn = tk.Button(lf_H8, text="ЗАВЕРШИТИ", font=courier_10, foreground='red', command=confirm_exit)
-        exit_btn.grid(row=4, column=0, ipadx=6, ipady=6, padx=50, pady=1)
+        exit_btn.grid(row=3, column=0, ipadx=6, ipady=6, padx=50, pady=1)
 
         lf_H1.grid(column=0, row=2, padx=20, pady=10, sticky=W)
         lf_H8.grid(column=0, row=5, padx=20, pady=10, sticky=W)
