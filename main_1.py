@@ -81,10 +81,13 @@ def add_app(root):
 
 
 
-        def label_report(frame, row, column, value):
+        # def label_report(frame, row, column, value):
+        def label_report(*args):
 
-            report_label = ttk.Label(frame, text=f'Ви вибрали:  {value}', font=courier_10, foreground='green')
-            report_label.grid(row=row, column=column, ipadx=6, ipady=6, padx=55, pady=5)
+            report_label = ttk.Label(args[0], text=f'Ви вибрали:  {args[3]}', font=courier_10, foreground='green')
+            # report_label = ttk.Label(frame, text=f'Ви вибрали:  {value}', font=courier_10, foreground='green')
+            report_label.grid(row=args[1], column=args[2], ipadx=6, ipady=6, padx=55, pady=5)
+            # report_label.grid(row=row, column=column, ipadx=6, ipady=6, padx=55, pady=5)
             print('l>>>>>')
 
         def validate_input(new_value):

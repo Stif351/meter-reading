@@ -12,9 +12,10 @@ def change_photos(root):
     # def batch_compress_images(input_folder, output_folder, quality):
     def batch_compress_images():
 
-        input_folder = filedialog.askdirectory(initialdir=r"D:\комуналка", title="ВИБІР ПАПКИ З ФАЙЛАМИ")  # папка з фото
+        input_folder = filedialog.askdirectory(initialdir=r" ", title="ВИБІР ПАПКИ З ФАЙЛАМИ")  # папка з фото
         # input_folder = 'd:/комуналка\Комуналка_Раевка_25/КВІТНЕВА_8/photos'  # папка з фото
-        output_folder = 'D:/комуналка/dir_result'  # папка для готових файлів
+        output_folder = filedialog.askdirectory(initialdir=r" ", title="ВИБІР ПАПКИ ДЛЯ ЗБЕРЕЖЕННЯ ФАЙЛІВ")  # папка для готових файлів
+        # output_folder = 'D:/комуналка/dir_result'  # папка для готових файлів
         quality = 15
 
         # прогрес бар
@@ -31,9 +32,9 @@ def change_photos(root):
         progress_bar["value"] = 0
 
         # Створюємо папку для результатів
-        if not os.path.exists(output_folder):
+        '''if not os.path.exists(output_folder):
             os.makedirs(output_folder)
-            print(f"Створено папку: {output_folder}")
+            print(f"Створено папку: {output_folder}") '''
         count = 0
         # Перебираємо всі файли в робочій папці
         for filename in os.listdir(input_folder):
@@ -55,7 +56,7 @@ def change_photos(root):
                     print(f"Помилка обробки файлу {filename}: {e}")
                     messagebox.showerror("ПОМИЛКА ОБРОБКИ", f"Помилка обробки файлу {filename}", parent=about_win)
 
-        messagebox.showinfo('ОБРОБКА ФАЙЛІВ ', f'Успішно оброблено файлів: {count}. \nШлях до файлів: D:/комуналка/dir_result', parent=about_win)
+        messagebox.showinfo('ОБРОБКА ФАЙЛІВ ', f'Успішно оброблено файлів: {count}. \nШлях до файлів: {output_folder}', parent=about_win)
         # print('FILES = ', count)
     # source_dir = 'd:/комуналка\Комуналка_Раевка_25/КВІТНЕВА_8/photos'  # папка з фото
     # result_dir = 'd:/комуналка\Комуналка_Раевка_25/dir_result'  # папка для готових файлів
