@@ -4,30 +4,19 @@ from tkinter.constants import SOLID
 
 import main_1, compress_files, utill
 
-from ut import MyExtraWindow  # Імпорт класу
+
 
 def change_photo():
-
     compress_files.change_photos(root)
 
 def add_check():
-    # utill.print_check(root)
-
-    new_win = MyExtraWindow(root)
-
-    new_win.grab_set()
-
+     utill.print_check(root)
 
 def add_date():
-
      main_1.add_app(root)
-
 
 def confirm_exit():
     root.destroy()
-
-
-
 
 # ===================  MAIN WINDOW  ==================================
 
@@ -37,7 +26,7 @@ root.title("ПОКАЗНИКИ ЛІЧИЛЬНИКІВ")
 window_width = 500
 window_height = 600
 
-# -------- CENTER SCREEN
+# -------- CENTER SCREEN ======================================
 
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
@@ -51,10 +40,7 @@ courier_10 = font.Font(family="Courier", size=10, weight="bold")
 courier_14 = font.Font(family="Courier", size=14, weight="bold")
 courier_18 = font.Font(family="Courier", size=18, weight="bold")
 
-
 # ---------------- BUTTONS ---------------------------
-
-
 
 lf_m= ttk.Frame(root, borderwidth=10, relief=SUNKEN)
 lf_m.config(width=450, height=500)
@@ -76,8 +62,5 @@ exit_btn = tk.Button(lf_m, text=" ЗАВЕРШИТИ ", font=courier_10, foregro
 exit_btn.grid(row=4, column=0, ipadx=6, ipady=6, padx=50, pady=30)
 
 lf_m.grid(column=0, row=5, ipadx=16, ipady=16, padx=60, pady=30)
-
-
-
 
 root.mainloop()

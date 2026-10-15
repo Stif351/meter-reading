@@ -1,7 +1,7 @@
 import os
 import tkinter as tk
 from tkinter import ttk, font, messagebox, filedialog, SUNKEN
-
+from tkinter.constants import SOLID
 from PIL import Image, ImageOps
 
 
@@ -97,7 +97,7 @@ def change_photos(root):
     save_btn = tk.Button(lf_MF, text="ОБРОБИТИ ФОТО", font=courier_10, state='normal', command=batch_compress_images)
     save_btn.grid(row=0, column=0, ipadx=6, ipady=6, padx=50, pady=20)
 
-    exit_btn = tk.Button(lf_MF, text=" ЗАВЕРШИТИ ", font=courier_10, foreground='red', command=confirm_exit)
+    exit_btn = tk.Button(lf_MF, text=" ЗАВЕРШИТИ ", font=courier_10, foreground='red', relief=SOLID, command=confirm_exit)
     exit_btn.grid(row=1, column=0, ipadx=6, ipady=6, padx=50, pady=20)
 
     lf_MF.grid(column=0, row=2, ipadx=6, ipady=6, padx=150, pady=50)

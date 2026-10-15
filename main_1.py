@@ -2,8 +2,8 @@ from tkinter import SUNKEN, W, END
 import search_data
 import tkinter as tk
 from tkinter import ttk, font, messagebox, filedialog
-
-
+from tkinter.constants import SOLID
+from datetime import datetime
 
 def add_app(root):
 
@@ -17,35 +17,48 @@ def add_app(root):
         entries = []
         address = [' ', 'КВІТНЕВА-8', 'КВІТНЕВА-30-5']
 
-        text = ''
-        text2 = ''
-        year = 2026
-        table_name = f'year{year}'
+
+
         # ================================== FUNCTIONS   ============================================
 
+        date_result = {
+            "month_name": "",
+            "year": "",
+            "address": ""
+        }
+        current_year = datetime.now().year
+        report_options_year = [str(current_year), str(current_year - 1)]
+
+        table_name = ''
+
+
+        def process_final_data():
+            year = date_result["year"]
+            month = date_result["month_name"]
+            address = date_result["address"]
+
+            nonlocal table_name
+            table_name = f'year{year}'
+
         def selected(event):
-            # global text, text2
-            nonlocal text, text2
+
             widget = event.widget
             tag = getattr(widget, "tag", None)
-            text1 = widget.get()
+            value = widget.get()
 
             if tag == "month":
+                label_report(lf_H1, 1, 3, value)
+                date_result["month_name"] = value
 
-                text = text1
-                print('text1>>', text1, text)
+            elif tag == "year":
+                label_report(lf_H1, 0, 3, value)
+                date_result["year"] =  value
 
-                label_report(lf_H1, 0, 3, text)
+            elif tag == "address":
+                label_report(lf_H1, 2, 3,value)
+                date_result["address"] = value
 
-            if tag == "address":
-                text2 = text1
-                label_report(lf_H1, 1, 3, text2)
-
-        '''def change_table():
-            if text == "грудень" and year == 
-        
-        # table_name = f'year{change_table}'
-        '''
+            process_final_data()
 
         def add_date():
 
@@ -66,7 +79,7 @@ def add_app(root):
                 'A1',
                 table_name,
                 'Дата',
-                text,
+                date_result["month_name"],
                 data_gas_num,
                 data_light_num,
                 data_water_num
@@ -80,21 +93,17 @@ def add_app(root):
 
                 field.delete(0, END)
 
+            selected_year.set('')
             selected_report.set('')
             selected_a.set('')
 
             messagebox.showinfo("Успіх", "Дані успішно збережено!", parent=about_win)
 
 
-
-        # def label_report(frame, row, column, value):
         def label_report(*args):
-
             report_label = ttk.Label(args[0], text=f'Ви вибрали:  {args[3]}', font=courier_10, foreground='green')
-            # report_label = ttk.Label(frame, text=f'Ви вибрали:  {value}', font=courier_10, foreground='green')
             report_label.grid(row=args[1], column=args[2], ipadx=6, ipady=6, padx=55, pady=5)
-            # report_label.grid(row=row, column=column, ipadx=6, ipady=6, padx=55, pady=5)
-            print('l>>>>>')
+
 
         def validate_input(new_value):
             if new_value == "":  # дозволяємо очищення поля
@@ -117,8 +126,16 @@ def add_app(root):
 
         about_win = tk.Toplevel(root)
         about_win.title("Внесення показників")
-        about_win.geometry("900x600+500+50")
+
+        window_width, window_height = 900, 600
+        screen_width = about_win.winfo_screenwidth()
+        screen_height = about_win.winfo_screenheight()
+        center_x = int((screen_width / 2) - (window_width / 2))
+        center_y = int((screen_height / 2) - (window_height / 2))
+
+        about_win.geometry(f'{window_width}x{window_height}+{center_x}+{center_y - 100}')
         about_win.configure(bg="#2c3e50")  # Власний колір фону
+
 
         courier_10 = font.Font(family="Courier", size=10, weight="bold")
         courier_14 = font.Font(family="Courier", size=14, weight="bold")
@@ -131,29 +148,38 @@ def add_app(root):
         # ========================  main frame  =======================================
 
         lf_MF = ttk.Frame(about_win, borderwidth=10, relief=SUNKEN)
-        lf_MF.config(width=850, height=600)
+        lf_MF.config(width=850, height=500)
 
 
         lf_H1 = ttk.Frame(lf_MF, borderwidth=10, relief=SUNKEN)
-        lf_H1.config(width=width_frame, height=110)
+        lf_H1.config(width=width_frame, height=160)
         lf_H1.grid_propagate(False)
 
+        label_year = tk.Label(lf_H1, text="Виберіть рік: ", font=courier_14)
+        label_year.grid(row=0, column=0, ipadx=6, ipady=6, padx=5, pady=5, sticky=W)
+
+        selected_year = tk.StringVar(value=report_options_year[0])
+        year_select = ttk.Combobox(lf_H1, textvariable=selected_year, values=report_options_year)
+        year_select.tag = "year"
+        year_select.grid(row=0, column=1, padx=5, pady=5, sticky=W)
+        year_select.bind("<<ComboboxSelected>>", selected)
+
         label_month = tk.Label(lf_H1, text="Виберіть місяць: ", font=courier_14)
-        label_month.grid(row=0, column=0, ipadx=6, ipady=6, padx=5, pady=5, sticky=W)
+        label_month.grid(row=1, column=0, ipadx=6, ipady=6, padx=5, pady=5, sticky=W)
 
         selected_report = tk.StringVar(value=months[0])
         report_menu = ttk.Combobox(lf_H1, textvariable=selected_report, values=months)
         report_menu.tag = "month"
-        report_menu.grid(row=0, column=1,padx=5, pady=5, sticky=W)
+        report_menu.grid(row=1, column=1,padx=5, pady=5, sticky=W)
         report_menu.bind("<<ComboboxSelected>>", selected)
 
         label_a = tk.Label(lf_H1, text="Виберіть адресу: ", font=courier_14)
-        label_a.grid(row=1, column=0, ipadx=6, ipady=6, padx=5, pady=5, sticky=W)
+        label_a.grid(row=2, column=0, ipadx=6, ipady=6, padx=5, pady=5, sticky=W)
 
         selected_a = tk.StringVar(value=address[0])
         address_t = ttk.Combobox(lf_H1, textvariable=selected_a, values=address)
         address_t.tag = 'address'
-        address_t.grid(row=1, column=1,padx=5, pady=5 )
+        address_t.grid(row=2, column=1,padx=5, pady=5 )
         address_t.bind("<<ComboboxSelected>>", selected)
 
 
@@ -162,7 +188,7 @@ def add_app(root):
         # ***************************** frame date count 8  **********************************
 
         lf_H8 = ttk.Frame(lf_MF, borderwidth=10, relief=SUNKEN)
-        lf_H8.config(width=width_frame, height=320)
+        lf_H8.config(width=width_frame, height=250)
         lf_H8.grid_propagate(False)
 
         vcmd = (lf_H8.register(validate_input), "%P")
@@ -185,7 +211,7 @@ def add_app(root):
         save_btn = tk.Button(lf_H8, text="ЗБЕРЕГТИ ПОКАЗНИКИ", font=courier_10, foreground='green', state='normal', command=add_date)
         save_btn.grid(row=3, column=1, ipadx=6, ipady=6, padx=50, pady=30)
 
-        exit_btn = tk.Button(lf_H8, text="ЗАВЕРШИТИ", font=courier_10, foreground='red', command=confirm_exit)
+        exit_btn = tk.Button(lf_H8, text="ЗАВЕРШИТИ", font=courier_10, foreground='red', relief=SOLID, command=confirm_exit)
         exit_btn.grid(row=3, column=0, ipadx=6, ipady=6, padx=50, pady=1)
 
         lf_H1.grid(column=0, row=2, padx=20, pady=10, sticky=W)
