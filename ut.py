@@ -202,7 +202,7 @@ class MyExtraWindow(tk.Toplevel):
         self.lf2.grid_propagate(False)
 
         label_month = tk.Label(self.lf2, text="Виберіть місяць: ", font=self.courier_14)
-        label_month.grid(row=2, column=0, ipadx=6, ipady=6, padx=5, pady=5)
+        label_month.grid(row=2, column=0, ipadx=6, ipady=6, padx=5, pady=5, sticky=W)
 
         self.selected_report = tk.StringVar(value=self.report_options[0])
         self.report_menu = ttk.Combobox(self.lf2, textvariable=self.selected_report, values=self.report_options)
@@ -213,7 +213,7 @@ class MyExtraWindow(tk.Toplevel):
         # =================== Додаємо рік  =======================================================
 
         label_year = tk.Label(self.lf2, text="Виберіть рік: ", font=self.courier_14)
-        label_year.grid(row=3, column=0, ipadx=6, ipady=6, padx=5, pady=5)
+        label_year.grid(row=3, column=0, ipadx=6, ipady=6, padx=5, pady=5, sticky=W)
 
         self.selected_report_year = tk.StringVar(value=self.report_options[0])
         self.report_menu_year = ttk.Combobox(self.lf2, textvariable=self.selected_report_year, values=self.report_options_year, state='disable')

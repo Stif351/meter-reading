@@ -2,7 +2,7 @@ import os
 import tkinter as tk
 from tkinter import ttk, font, messagebox, filedialog, SUNKEN
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 
 def change_photos(root):
@@ -12,11 +12,14 @@ def change_photos(root):
     # def batch_compress_images(input_folder, output_folder, quality):
     def batch_compress_images():
 
-        input_folder = filedialog.askdirectory(initialdir=r" ", title="ВИБІР ПАПКИ З ФАЙЛАМИ")  # папка з фото
+
+        input_folder = filedialog.askdirectory(initialdir=r" ", title="ОБРАТИ ПАПКУ З ФАЙЛАМИ")  # папка з фото
         # input_folder = 'd:/комуналка\Комуналка_Раевка_25/КВІТНЕВА_8/photos'  # папка з фото
-        output_folder = filedialog.askdirectory(initialdir=r" ", title="ВИБІР ПАПКИ ДЛЯ ЗБЕРЕЖЕННЯ ФАЙЛІВ")  # папка для готових файлів
-        # output_folder = 'D:/комуналка/dir_result'  # папка для готових файлів
-        quality = 15
+        output_folder = filedialog.askdirectory(initialdir=r" ", title="ОБРАТИ ПАПУ ДЛЯ ЗБЕРІГАННЯ ФАЙЛІВ")  # папка для готових файлів
+         # output_folder = 'D:/комуналка/dir_result'  # папка для готових файлів
+
+
+
 
         # прогрес бар
         # рахуємо кількість файлів у папці
@@ -36,6 +39,7 @@ def change_photos(root):
             os.makedirs(output_folder)
             print(f"Створено папку: {output_folder}") '''
         count = 0
+        quality = 15
         # Перебираємо всі файли в робочій папці
         for filename in os.listdir(input_folder):
             # Перевіряємо розширення файлу (ігноруємо регістр)
@@ -45,6 +49,8 @@ def change_photos(root):
 
                 try:
                     with Image.open(input_path) as img:
+
+                        img = ImageOps.exif_transpose(img)
 
                         img.save(output_path, "JPEG", quality=quality)
 
@@ -57,11 +63,6 @@ def change_photos(root):
                     messagebox.showerror("ПОМИЛКА ОБРОБКИ", f"Помилка обробки файлу {filename}", parent=about_win)
 
         messagebox.showinfo('ОБРОБКА ФАЙЛІВ ', f'Успішно оброблено файлів: {count}. \nШлях до файлів: {output_folder}', parent=about_win)
-        # print('FILES = ', count)
-    # source_dir = 'd:/комуналка\Комуналка_Раевка_25/КВІТНЕВА_8/photos'  # папка з фото
-    # result_dir = 'd:/комуналка\Комуналка_Раевка_25/dir_result'  # папка для готових файлів
-
-    # batch_compress_images(source_dir, result_dir, quality=15)
 
     def confirm_exit():
 
@@ -71,18 +72,21 @@ def change_photos(root):
 
     about_win = tk.Toplevel(root)
     about_win.title("ОБРОБКА ФОТО ЛІЧИЛЬНИКІВ")
-    about_win.geometry("600x400+300+50")
+
+    window_width, window_height = 600, 400
+    screen_width = about_win.winfo_screenwidth()
+    screen_height = about_win.winfo_screenheight()
+    center_x = int((screen_width / 2) - (window_width / 2))
+    center_y = int((screen_height / 2) - (window_height / 2))
+
+    about_win.geometry(f'{window_width}x{window_height}+{center_x}+{center_y - 100}')
     about_win.configure(bg="#2c3e50")  # Власний колір фону
 
     courier_10 = font.Font(family="Courier", size=10, weight=font.BOLD)
-    # courier_14 = font.Font(family="Courier", size=14, weight=font.BOLD)
     courier_18 = font.Font(family="Courier", size=18, weight=font.BOLD)
-    # width_frame = 800
-
-
 
     label = tk.Label(about_win, text="ОБРОБКА ФОТО ЛІЧИЛЬНИКІВ", fg="BLUE", font=courier_18)
-    label.grid(row=0, column=0, columnspan=3, ipadx=6, ipady=6, padx=5, pady=5)
+    label.grid(row=0, column=0, columnspan=3, ipadx=6, ipady=6, padx=15, pady=10)
 
     progress_bar = ttk.Progressbar(about_win, orient=tk.HORIZONTAL, length=300, mode="determinate")
     progress_bar.grid(row=1, column=0, ipadx=6, ipady=6, padx=5, pady=5)
@@ -91,11 +95,11 @@ def change_photos(root):
     lf_MF.config(width=850, height=600)
 
     save_btn = tk.Button(lf_MF, text="ОБРОБИТИ ФОТО", font=courier_10, state='normal', command=batch_compress_images)
-    save_btn.grid(row=0, column=0, ipadx=6, ipady=6, padx=50, pady=30)
+    save_btn.grid(row=0, column=0, ipadx=6, ipady=6, padx=50, pady=20)
 
     exit_btn = tk.Button(lf_MF, text=" ЗАВЕРШИТИ ", font=courier_10, foreground='red', command=confirm_exit)
-    exit_btn.grid(row=1, column=0, ipadx=6, ipady=6, padx=50, pady=30)
+    exit_btn.grid(row=1, column=0, ipadx=6, ipady=6, padx=50, pady=20)
 
-    lf_MF.grid(column=0, row=2, ipadx=6, ipady=6, padx=120, pady=50)
+    lf_MF.grid(column=0, row=2, ipadx=6, ipady=6, padx=150, pady=50)
 
     about_win.grab_set()

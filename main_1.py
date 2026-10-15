@@ -41,6 +41,12 @@ def add_app(root):
                 text2 = text1
                 label_report(lf_H1, 1, 3, text2)
 
+        '''def change_table():
+            if text == "грудень" and year == 
+        
+        # table_name = f'year{change_table}'
+        '''
+
         def add_date():
 
             data_gas_num = entries[0].get()
@@ -114,9 +120,9 @@ def add_app(root):
         about_win.geometry("900x600+500+50")
         about_win.configure(bg="#2c3e50")  # Власний колір фону
 
-        courier_10 = font.Font(family="Courier", size=10, weight=font.BOLD)
-        courier_14 = font.Font(family="Courier", size=14, weight=font.BOLD)
-        courier_18 = font.Font(family="Courier", size=18, weight=font.BOLD)
+        courier_10 = font.Font(family="Courier", size=10, weight="bold")
+        courier_14 = font.Font(family="Courier", size=14, weight="bold")
+        courier_18 = font.Font(family="Courier", size=18, weight="bold")
         width_frame = 800
 
         label = tk.Label(about_win, text="ДОДАВАННЯ ПОКАЗНИКІВ ЛІЧИЛЬНИКІВ У ФАЙЛ", fg="BLUE", font=courier_18)
@@ -166,7 +172,7 @@ def add_app(root):
 
 
             label = tk.Label(lf_H8, text=f"Введіть показники лічильника {d}: ",  font=courier_14)
-            label.grid(row=i, column=0, ipadx=6, ipady=6, padx=5, pady=5)
+            label.grid(row=i, column=0, ipadx=6, ipady=6, padx=5, pady=5, sticky=W)
 
             entry = tk.Entry(lf_H8, validate="key", validatecommand=vcmd)
             entry.grid(row=i, column=1, ipadx=6, ipady=6)
