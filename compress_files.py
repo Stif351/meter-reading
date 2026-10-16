@@ -7,37 +7,23 @@ from PIL import Image, ImageOps
 
 def change_photos(root):
 
-
-
-    # def batch_compress_images(input_folder, output_folder, quality):
     def batch_compress_images():
 
-
         input_folder = filedialog.askdirectory(initialdir=r" ", title="ОБРАТИ ПАПКУ З ФАЙЛАМИ")  # папка з фото
-        # input_folder = 'd:/комуналка\Комуналка_Раевка_25/КВІТНЕВА_8/photos'  # папка з фото
         output_folder = filedialog.askdirectory(initialdir=r" ", title="ОБРАТИ ПАПУ ДЛЯ ЗБЕРІГАННЯ ФАЙЛІВ")  # папка для готових файлів
-         # output_folder = 'D:/комуналка/dir_result'  # папка для готових файлів
-
-
-
 
         # прогрес бар
         # рахуємо кількість файлів у папці
         files_to_process = [
             f
             for f in os.listdir(input_folder)
-            if os.path.isfile(os.path.join(input_folder, f))
+            if os.path.isfile(os.path.join(input_folder, f)) and f.lower().endswith(('.jpeg', 'jpg'))
         ]
-        print('files_to_process', files_to_process)
+
         total_files = len(files_to_process)
-        print('total_files', total_files)
         progress_bar["maximum"] = total_files
         progress_bar["value"] = 0
 
-        # Створюємо папку для результатів
-        '''if not os.path.exists(output_folder):
-            os.makedirs(output_folder)
-            print(f"Створено папку: {output_folder}") '''
         count = 0
         quality = 15
         # Перебираємо всі файли в робочій папці
@@ -51,10 +37,8 @@ def change_photos(root):
                     with Image.open(input_path) as img:
 
                         img = ImageOps.exif_transpose(img)
-
                         img.save(output_path, "JPEG", quality=quality)
 
-                    # print(f"Успішно оброблено: {filename}")
                     count += 1
                     progress_bar["value"] = count
                     root.update_idletasks()

@@ -54,7 +54,7 @@ def print_check(root):
 
         def browse_directory(parent_frame, row, col, key, curr_btn, next_btn):
 
-            init_dir = r"D:\комуналка" if os.path.exists(r"D:\комуналка") else os.path.expanduser("~")   # Резервний вибір папки, якщо hardcoded шлях відсутній
+            init_dir = r" " if os.path.exists(r" ") else os.path.expanduser("~")   # Резервний вибір папки, якщо hardcoded шлях відсутній
             new_path = filedialog.askdirectory(initialdir=init_dir, title="Оберіть папку", parent=about_win)
 
             if not new_path:
@@ -177,7 +177,7 @@ def print_check(root):
         center_x = int((screen_width / 2) - (window_width / 2))
         center_y = int((screen_height / 2) - (window_height / 2))
 
-        about_win.geometry(f'{window_width}x{window_height}+{center_x}+{center_y - 100}')
+        about_win.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
         about_win.configure(bg="#2c3e50")  # Власний колір фону
 
         courier_10 = font.Font(family="Courier", size=10, weight="bold")

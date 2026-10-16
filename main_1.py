@@ -17,28 +17,18 @@ def add_app(root):
         entries = []
         address = [' ', 'КВІТНЕВА-8', 'КВІТНЕВА-30-5']
 
-
-
-        # ================================== FUNCTIONS   ============================================
-
         date_result = {
             "month_name": "",
             "year": "",
             "address": ""
         }
+
         current_year = datetime.now().year
         report_options_year = [str(current_year), str(current_year - 1)]
 
-        table_name = ''
 
+        # ================================== FUNCTIONS   ============================================
 
-        def process_final_data():
-            year = date_result["year"]
-            month = date_result["month_name"]
-            address = date_result["address"]
-
-            nonlocal table_name
-            table_name = f'year{year}'
 
         def selected(event):
 
@@ -58,13 +48,15 @@ def add_app(root):
                 label_report(lf_H1, 2, 3,value)
                 date_result["address"] = value
 
-            process_final_data()
+
 
         def add_date():
 
             data_gas_num = entries[0].get()
             data_light_num = entries[1].get()
             data_water_num = entries[2].get()
+            table_name = f'year{date_result["year"]}'
+            month =  date_result["month_name"]
 
             new_folder_path = filedialog.asksaveasfilename(
 
@@ -79,7 +71,7 @@ def add_app(root):
                 'A1',
                 table_name,
                 'Дата',
-                date_result["month_name"],
+                month,
                 data_gas_num,
                 data_light_num,
                 data_water_num
